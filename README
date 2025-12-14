@@ -45,3 +45,26 @@ GNU General Public License terms under which you can copy the files.
 
 REPORTING BUGS: Again, see gdb/README, binutils/README, etc., for info
 on where and how to report problems.
+
+
+-----
+
+Building Binutils to compile for NocturneOS:
+
+IMPORTANT NOTE: It's strongly recommended to configure build in a separate directory to avoid messing up Git tree.
+
+```
+mkdir build
+cd build
+../configure --target="i386-nocturne" --disable-gdb --disable-python --disable-gdbserver
+make -j$(nproc)
+sudo make install
+```
+
+After executing these commands you will able to run Binutils with `i386-nocturne-` prefix.
+
+Example:
+```
+i386-nocturne-as program.s -o program.o
+i386-nocturne-ld program.o -o program
+```

@@ -76,3 +76,8 @@ stamp-*
 /gmp*
 /isl*
 /gettext*
+
+# Development: do not include building directories
+
+build/
+build64/
