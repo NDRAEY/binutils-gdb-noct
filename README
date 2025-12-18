@@ -52,11 +52,12 @@ on where and how to report problems.
 Building Binutils to compile for NocturneOS:
 
 IMPORTANT NOTE: It's strongly recommended to configure build in a separate directory to avoid messing up Git tree.
+NOTE: If you're building in Termux: add "--prefix=/data/data/com.termux/files" to `../configure` cmdline.
 
 ```
 mkdir build
 cd build
-../configure --target="i386-nocturne" --disable-gdb --disable-python --disable-gdbserver
+../configure --target="i386-nocturne" --disable-gdb --disable-python --disable-gdbserver --disable-docs --disable-tests
 make -j$(nproc)
 sudo make install
 ```
