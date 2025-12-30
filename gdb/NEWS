@@ -69,6 +69,12 @@ maintenance test-remote-args ARGS
   Test splitting and joining of inferior arguments ARGS as they would
   be split and joined when being passed to a remote target.
 
+set progress-bars enabled on|off
+show progress-bars enabled
+  Allows the progress bars, used when debuginfod is downloading
+  content, to be disabled (the set command), or to see if
+  progress-bars are currently enabled or not (the show command).
+
 * Changed commands
 
 maintenance info program-spaces
@@ -92,6 +98,14 @@ single-inf-arg in qSupported
   arguments as a single string within the vRun packet.  The stub can
   reply with the single-inf-arg feature to indicate that it is able to
   accept arguments as a single string.
+
+set args
+run
+start
+starti
+  These commands now all allow for entering inferior arguments that
+  contain a newline character.  The newline must be contained within a
+  single or double quoted argument.
 
 * New remote packets
 

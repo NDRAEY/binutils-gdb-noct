@@ -165,6 +165,7 @@ enum aarch64_field_kind
   FLD_imm1_14,
   FLD_imm1_15,
   FLD_imm1_16,
+  FLD_imm1_22,
   FLD_imm2_0,
   FLD_imm2_1,
   FLD_imm2_2,
@@ -390,9 +391,6 @@ verify_constraints (const struct aarch64_inst *, const aarch64_insn, bfd_vma,
 /* Bits [15, 18] contain the maximum value for an immediate MSR.  */
 #define F_REG_MAX_VALUE(X) ((X) << 15)
 #define F_GET_REG_MAX_VALUE(X) (((X) >> 15) & 0x0f)
-
-/* HINT operand flags.  */
-#define HINT_OPD_F_NOPRINT	(1 << 0)  /* Should not be printed.  */
 
 /* Encode 7-bit HINT #imm in the lower 8 bits.  Use higher bits for flags.  */
 #define HINT_ENCODE(flag, val) ((flag << 8) | val)

@@ -18711,6 +18711,16 @@ fi
 cat >>confdefs.h <<_ACEOF
 #define HAVE_DECL_STPCPY $ac_have_decl
 _ACEOF
+ac_fn_c_check_decl "$LINENO" "strtoull" "ac_cv_have_decl_strtoull" "$ac_includes_default"
+if test "x$ac_cv_have_decl_strtoull" = xyes; then :
+  ac_have_decl=1
+else
+  ac_have_decl=0
+fi
+
+cat >>confdefs.h <<_ACEOF
+#define HAVE_DECL_STRTOULL $ac_have_decl
+_ACEOF
 
 
 
@@ -19232,7 +19242,7 @@ do
       targ_extra_libpath="$targ_extra_libpath $targ64_extra_libpath"
     fi
 
-    for i in $targ_emul $targ_extra_emuls $targ_extra_libpath; do
+    for i in $targ_emul $targ_extra_libpath $targ_extra_emuls; do
 	case " $all_emuls " in
 	*" e${i}.o "*) ;;
 	*)

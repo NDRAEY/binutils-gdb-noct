@@ -18,5 +18,5 @@ with Pkg;
 procedure Main is
    V : Pkg.Value := Pkg.Create (42);
 begin
-   null;				--  STOP
+   Pkg.Do_Nothing (V'Address);      --  STOP
 end Main;

@@ -800,7 +800,7 @@ _bfd_vms_lib_find_symbol (bfd *abfd, const char *name)
       int mid = lo + (hi - lo) / 2;
       int diff;
 
-      diff = (char)(name[0] - syms[mid].name[0]);
+      diff = (signed char) (name[0] - syms[mid].name[0]);
       if (diff == 0)
 	diff = strcmp (name, syms[mid].name);
       if (diff == 0)
@@ -1264,7 +1264,7 @@ vms_lib_bstat (struct bfd *abfd ATTRIBUTE_UNUSED,
 	       struct stat *sb ATTRIBUTE_UNUSED)
 {
   /* Not supported.  */
-  return 0;
+  return -1;
 }
 
 static void *

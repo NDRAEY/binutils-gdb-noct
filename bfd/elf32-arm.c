@@ -2016,20 +2016,19 @@ static const struct elf32_arm_reloc_map elf32_arm_reloc_map[] =
     {BFD_RELOC_THUMB_PCREL_BRANCH20, R_ARM_THM_JUMP19},
     {BFD_RELOC_THUMB_PCREL_BRANCH9,  R_ARM_THM_JUMP8},
     {BFD_RELOC_THUMB_PCREL_BRANCH7,  R_ARM_THM_JUMP6},
-    {BFD_RELOC_ARM_GLOB_DAT,	     R_ARM_GLOB_DAT},
-    {BFD_RELOC_ARM_JUMP_SLOT,	     R_ARM_JUMP_SLOT},
-    {BFD_RELOC_ARM_RELATIVE,	     R_ARM_RELATIVE},
+    {BFD_RELOC_GLOB_DAT,	     R_ARM_GLOB_DAT},
+    {BFD_RELOC_JMP_SLOT,	     R_ARM_JUMP_SLOT},
+    {BFD_RELOC_RELATIVE,	     R_ARM_RELATIVE},
     {BFD_RELOC_ARM_GOTOFF,	     R_ARM_GOTOFF32},
     {BFD_RELOC_ARM_GOTPC,	     R_ARM_GOTPC},
     {BFD_RELOC_ARM_GOT_PREL,	     R_ARM_GOT_PREL},
     {BFD_RELOC_ARM_GOT32,	     R_ARM_GOT32},
-    {BFD_RELOC_ARM_PLT32,	     R_ARM_PLT32},
+    {BFD_RELOC_32_PLT_PCREL,	     R_ARM_PLT32},
     {BFD_RELOC_ARM_TARGET1,	     R_ARM_TARGET1},
     {BFD_RELOC_ARM_ROSEGREL32,	     R_ARM_ROSEGREL32},
     {BFD_RELOC_ARM_SBREL32,	     R_ARM_SBREL32},
     {BFD_RELOC_ARM_PREL31,	     R_ARM_PREL31},
     {BFD_RELOC_ARM_TARGET2,	     R_ARM_TARGET2},
-    {BFD_RELOC_ARM_PLT32,	     R_ARM_PLT32},
     {BFD_RELOC_ARM_TLS_GOTDESC,	     R_ARM_TLS_GOTDESC},
     {BFD_RELOC_ARM_TLS_CALL,	     R_ARM_TLS_CALL},
     {BFD_RELOC_ARM_THM_TLS_CALL,     R_ARM_THM_TLS_CALL},
@@ -2044,7 +2043,7 @@ static const struct elf32_arm_reloc_map elf32_arm_reloc_map[] =
     {BFD_RELOC_ARM_TLS_TPOFF32,	     R_ARM_TLS_TPOFF32},
     {BFD_RELOC_ARM_TLS_IE32,	     R_ARM_TLS_IE32},
     {BFD_RELOC_ARM_TLS_LE32,	     R_ARM_TLS_LE32},
-    {BFD_RELOC_ARM_IRELATIVE,	     R_ARM_IRELATIVE},
+    {BFD_RELOC_IRELATIVE,	     R_ARM_IRELATIVE},
     {BFD_RELOC_ARM_GOTFUNCDESC,      R_ARM_GOTFUNCDESC},
     {BFD_RELOC_ARM_GOTOFFFUNCDESC,   R_ARM_GOTOFFFUNCDESC},
     {BFD_RELOC_ARM_FUNCDESC,         R_ARM_FUNCDESC},
@@ -2150,6 +2149,16 @@ elf32_arm_nabi_grok_prstatus (bfd *abfd, Elf_Internal_Note *note)
       default:
 	return false;
 
+      case 156:         /* Linux/ARM 32-bit, some pre-v5.9 linux kernels.  */
+	/* There's a linux kernel bug for CONFIG_BINFMT_ELF_FDPIC=y
+	   configurations, fixed by v5.9 linux kernel commit 16aead81018c
+	   ("take fdpic-related parts of elf_prstatus out").
+	   The bug causes the FDPIC-specific unsigned long fields
+	   pr_exec_fdpic_loadmap and pr_interp_fdpic_loadmap to be added to
+	   struct elf_prstatus in case the FDPIC ABI is not used.
+	   The two fields are added after pr_reg, so just ignore them.  */
+
+	/* Fall through.  */
       case 148:		/* Linux/ARM 32-bit.  */
 	/* pr_cursig */
 	elf_tdata (abfd)->core->signal = bfd_get_16 (abfd, note->descdata + 12);

@@ -51,7 +51,7 @@ case $targ in
  *-*-solaris2.1[01]*)
     # Only Solaris 10+ is not obsolete.
     ;;
- *-*-solaris2.[0-9]* | \
+ *-*-solaris* | \
  null)
     if test "x$enable_obsolete" != xyes; then
       echo "*** Configuration $targ is obsolete." >&2
@@ -594,15 +594,16 @@ case "${targ}" in
     targ_defvec=i386_elf32_vec
     targ_selvecs="iamcu_elf32_vec i386_coff_vec"
     ;;
-  i[3-7]86-*-solaris2.1[01]*)
-    # PR 27666: Do not include i386_elf32_vec or x86_64_elf64_vec.
+  i[3-7]86-*-solaris2*)
     targ_defvec=i386_elf32_sol2_vec
-    targ64_selvecs=x86_64_elf64_sol2_vec
+    targ_selvecs=i386_elf32_vec
+    targ64_selvecs="x86_64_elf64_sol2_vec x86_64_elf64_vec"
+    # Include 64-bit support to match GCC.
     want64=true
     ;;
-  i[3-7]86-*-solaris2.[0-9]*)
-    # PR 27666: Do not include i386_elf32_vec here.
+  i[3-7]86-*-solaris*)
     targ_defvec=i386_elf32_sol2_vec
+    targ_selvecs=i386_elf32_vec
     ;;
   i[3-7]86-*-nto*)
     targ_defvec=i386_elf32_vec
@@ -738,10 +739,9 @@ case "${targ}" in
     targ_selvecs=i386_elf32_vec
     want64=true
     ;;
-  x86_64-*-solaris2.1[01]*)
-    # PR 27666: Do not include i386_elf32_vec or x86_64_elf64_vec.
+  x86_64-*-solaris2*)
     targ_defvec=x86_64_elf64_sol2_vec
-    targ_selvecs=i386_elf32_sol2_vec
+    targ_selvecs="i386_elf32_sol2_vec x86_64_elf64_vec i386_elf32_vec"
     want64=true
     ;;
   x86_64-*-gnu*)
@@ -1347,22 +1347,17 @@ case "${targ}" in
     targ_selvecs="sh_coff_vec sh_coff_le_vec sh_coff_small_vec sh_coff_small_le_vec"
     targ_underscore=yes
     ;;
-  sparc-*-solaris2.[7-9]* | sparc-*-solaris2.1[01]*)
-    # PR 27666: Do not include sparc_elf32_vec or sparc_elf64_vec here.
+  sparc-*-solaris2*)
     targ_defvec=sparc_elf32_sol2_vec
-    targ64_selvecs=sparc_elf64_sol2_vec
+    targ_selvecs=sparc_elf32_vec
+    targ64_selvecs="sparc_elf64_sol2_vec sparc_elf64_vec"
+    # Include 64-bit support to match GCC.
     want64=true
     ;;
-  sparc-*-solaris2.[0-6]*)
-    # PR 27666: Do not include sparc_elf32_vec here.
-    targ_defvec=sparc_elf32_sol2_vec
-    ;;
 #ifdef BFD64
-  sparcv9-*-solaris2.[7-9]* | sparcv9-*-solaris2.1[01]* | \
-  sparc64-*-solaris2.[7-9]* | sparc64-*-solaris2.1[01]*)
-    # PR 27666: Do not include sparc_elf32_vec or sparc_elf64_vec here.
+  sparcv9-*-solaris2* | sparc64-*-solaris2*)
     targ_defvec=sparc_elf64_sol2_vec
-    targ_selvecs=sparc_elf32_sol2_vec
+    targ_selvecs="sparc_elf32_sol2_vec sparc_elf64_vec sparc_elf32_vec"
     want64=true
     ;;
   sparc64-*-haiku*)
@@ -1387,6 +1382,10 @@ case "${targ}" in
   sparc-*-vxworks*)
     targ_defvec=sparc_elf32_vxworks_vec
     targ_selvecs="sparc_elf32_vec"
+    ;;
+  sparc*-*-solaris*)
+    targ_defvec=sparc_elf32_sol2_vec
+    targ_selvecs=sparc_elf32_vec
     ;;
   sparc*-*-*)
     targ_defvec=sparc_elf32_vec

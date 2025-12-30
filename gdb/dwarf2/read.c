@@ -1132,7 +1132,7 @@ dwarf2_per_bfd::dwarf2_per_bfd (bfd *obfd, const dwarf2_debug_sections *names,
   if (names == NULL)
     names = &dwarf2_elf_names;
 
-  for (asection *sec = obfd->sections; sec != NULL; sec = sec->next)
+  for (asection *sec : gdb_bfd_sections (obfd))
     this->locate_sections (sec, *names);
 }
 
@@ -4071,7 +4071,7 @@ queue_comp_unit (dwarf2_per_cu *per_cu, dwarf2_per_objfile *per_objfile)
    (present in `dwarf2_per_bfd::queue`), then its DIEs are loaded
    (a dwarf2_cu object exists for this CU, and `dwarf2_per_objfile::get_cu`
    returns non-nullptr).  If the CU gets enqueued by this function but its DIEs
-   are not yet loaded, the the caller must load the CU's DIEs to ensure the
+   are not yet loaded, the caller must load the CU's DIEs to ensure the
    invariant is respected.
 
    The caller is therefore not required to load the CU's DIEs (we return false)

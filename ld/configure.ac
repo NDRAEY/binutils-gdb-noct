@@ -451,7 +451,7 @@ AC_CHECK_FUNCS(close getrusage glob lseek mkstemp open realpath waitpid)
 
 BFD_BINARY_FOPEN
 
-AC_CHECK_DECLS([environ, stpcpy])
+AC_CHECK_DECLS([environ, stpcpy, strtoull])
 
 GCC_AC_FUNC_MMAP
 
@@ -537,7 +537,7 @@ do
       targ_extra_libpath="$targ_extra_libpath $targ64_extra_libpath"
     fi
 
-    for i in $targ_emul $targ_extra_emuls $targ_extra_libpath; do
+    for i in $targ_emul $targ_extra_libpath $targ_extra_emuls; do
 	case " $all_emuls " in
 	*" e${i}.o "*) ;;
 	*)

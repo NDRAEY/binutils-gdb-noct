@@ -2981,6 +2981,32 @@ with no arguments.  Once you have run your program with arguments,
 using @code{set args} before the next @code{run} is the only way to run
 it again without arguments.
 
+@cindex newlines in inferior command lines
+@cindex inferior command line with embedded newlines
+It is possible to set arguments containing a newline character.  This
+can be done by enclosing an argument within a quotes.  For example,
+start by entering:
+
+@smallexample
+(@value{GDBP}) set args "ab
+@end smallexample
+
+@noindent
+and then enter the newline, @value{GDBN} gives a secondary prompt
+@code{>} and allows you to continue entering the arguments:
+
+@smallexample
+(@value{GDBP}) set args "ab
+>cd"
+(@value{GDBP}) show args
+Argument list to give program being debugged when it is started is ""ab
+cd"".
+@end smallexample
+
+On Unix systems both single or double quotes can be used around
+arguments containing a newline.  On MS-Windows, only double quotes can
+be used.
+
 @kindex show args
 @item show args
 Show the arguments to give your program when it is started.
@@ -8401,7 +8427,7 @@ default, ten instructions are disassembled.  This can be changed using
 the @code{set record instruction-history-size} command.  Instructions
 are printed in execution order.
 
-It can also print mixed source+disassembly if you specify the the
+It can also print mixed source+disassembly if you specify the
 @code{/m} or @code{/s} modifier, and print the raw instructions in hex
 as well as in symbolic form by specifying the @code{/r} or @code{/b}
 modifier.  The behavior of the @code{/m}, @code{/s}, @code{/r}, and
@@ -51348,6 +51374,21 @@ default.
 @kindex show debuginfod verbose
 @item show debuginfod verbose
 Show the current verbosity setting.
+
+@kindex set progress-bars enabled
+@cindex progress bars, disabling
+@item set progress-bars enabled @r{[}on@r{|}off@r{]}
+Set whether @value{GDBN} can display a progress bar when downloading a
+file from debuginfod.  When @samp{off}, @value{GDBN} will not display
+a progress bar.  When @samp{on}, @value{GDBN} will display a progress
+bar if @value{GDBN}'s output console supports it.
+
+@kindex show progress-bars enabled
+@item show progress-bars enabled
+Shows whether progress bars are currently enabled or not.  Progress
+bars can be automatically disabled if @value{GDBN}'s output console
+doesn't support them, or if the terminal width is too small
+(@pxref{Screen Size,,@kbd{set width} command}).
 
 @end table
 

@@ -22,7 +22,6 @@
 #include "bfd.h"
 
 #include <stdarg.h>
-#include <strings.h>
 
 #include "bfdlink.h"
 #include "libbfd.h"
@@ -414,16 +413,16 @@ elf_xtensa_reloc_type_lookup (bfd *abfd ATTRIBUTE_UNUSED,
       TRACE ("BFD_RELOC_XTENSA_RTLD");
       return &elf_howto_table[(unsigned) R_XTENSA_RTLD ];
 
-    case BFD_RELOC_XTENSA_GLOB_DAT:
-      TRACE ("BFD_RELOC_XTENSA_GLOB_DAT");
+    case BFD_RELOC_GLOB_DAT:
+      TRACE ("BFD_RELOC_GLOB_DAT");
       return &elf_howto_table[(unsigned) R_XTENSA_GLOB_DAT ];
 
-    case BFD_RELOC_XTENSA_JMP_SLOT:
-      TRACE ("BFD_RELOC_XTENSA_JMP_SLOT");
+    case BFD_RELOC_JMP_SLOT:
+      TRACE ("BFD_RELOC_JMP_SLOT");
       return &elf_howto_table[(unsigned) R_XTENSA_JMP_SLOT ];
 
-    case BFD_RELOC_XTENSA_RELATIVE:
-      TRACE ("BFD_RELOC_XTENSA_RELATIVE");
+    case BFD_RELOC_RELATIVE:
+      TRACE ("BFD_RELOC_RELATIVE");
       return &elf_howto_table[(unsigned) R_XTENSA_RELATIVE ];
 
     case BFD_RELOC_XTENSA_PLT:
