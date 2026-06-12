@@ -57,7 +57,7 @@ NOTE: If you're building in Termux: add "--prefix=/data/data/com.termux/files" t
 ```
 mkdir build
 cd build
-../configure --target="i386-nocturne" --disable-gdb --disable-python --disable-gdbserver --disable-docs --disable-tests
+../configure --target="i386-nocturne" --disable-gdb --disable-python --disable-gdbserver --disable-docs --disable-tests --disable-werror
 make -j$(nproc)
 sudo make install
 ```
