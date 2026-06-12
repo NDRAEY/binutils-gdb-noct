@@ -55,9 +55,17 @@ IMPORTANT NOTE: It's strongly recommended to configure build in a separate direc
 NOTE: If you're building in Termux: add "--prefix=/data/data/com.termux/files" to `../configure` cmdline.
 
 ```
-mkdir build
-cd build
+mkdir build-i386
+cd build-i386
 ../configure --target="i386-nocturne" --disable-gdb --disable-python --disable-gdbserver --disable-docs --disable-tests --disable-werror
+make -j$(nproc)
+sudo make install
+```
+
+```
+mkdir build-x86_64
+cd build-x86_64
+../configure --target="x86_64-nocturne" --disable-gdb --disable-python --disable-gdbserver --disable-docs --disable-tests --disable-werror
 make -j$(nproc)
 sudo make install
 ```

@@ -79,5 +79,4 @@ stamp-*
 
 # Development: do not include building directories
 
-build/
-build64/
+build-*/
