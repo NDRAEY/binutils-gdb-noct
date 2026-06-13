@@ -1,3 +1,3 @@
 source_sh ${srcdir}/emulparams/elf_x86_64.sh
-TEXT_START_ADDR=0x20000000
+#TEXT_START_ADDR=0x20000000
 
